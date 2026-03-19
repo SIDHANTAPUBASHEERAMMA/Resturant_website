@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cart — SPICE ROUTE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}:root{--fire:#e8621c;--gold:#d4960f;--dark:#0d0b08;--card:#181410;--card2:#221c16;--card3:#2a2118;--border:rgba(255,255,255,0.08);--text:#f2ead8;--muted:#8a7a65;--green:#3dba7a}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--fire)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(13,11,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:3px}.logo span{color:var(--fire);font-style:italic}
+.nav-links{display:flex;gap:2px}.nav-links a{color:var(--muted);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:6px;transition:all .2s}.nav-links a:hover,.nav-links a.active{background:var(--card2);color:var(--text)}.nav-links a.active{color:var(--fire)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{background:var(--fire);color:#fff;padding:9px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.cart-badge{background:var(--gold);color:#000;border-radius:20px;min-width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-signin{border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:7px;font-size:0.75rem;font-weight:500}
+.wrap{padding:106px 52px 80px;min-height:100vh}
+.layout{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+.pg-title{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:900;margin-bottom:6px}
+.pg-sub{color:var(--muted);font-size:0.83rem;margin-bottom:28px}
+.citem{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:11px;transition:border-color .2s}
+.citem:hover{border-color:rgba(232,98,28,0.25)}
+.citem-emoji{width:90px;height:80px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:var(--card2);flex-shrink:0}
+.citem-body{flex:1;padding:14px 16px}.citem-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:3px}.citem-sub{font-size:0.74rem;color:var(--muted)}
+.citem-right{padding:14px 16px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.citem-price{font-size:1.05rem;font-weight:700;color:var(--gold)}
+.qty-ctrl{display:flex;align-items:center;gap:4px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:2px}
+.qty-btn{background:none;border:none;color:var(--gold);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:1rem;border-radius:6px;transition:background .15s;cursor:pointer}.qty-btn:hover{background:var(--fire);color:#fff}
+.qty-val{font-size:0.82rem;font-weight:700;min-width:18px;text-align:center;color:var(--text)}
+.del-btn{background:none;border:none;color:var(--muted);font-size:1rem;transition:color .2s;padding:2px;cursor:pointer}.del-btn:hover{color:var(--fire)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:17px;padding:24px;position:sticky;top:86px}
+.panel-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;margin-bottom:18px}
+.prow{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:11px}.prow .lbl{color:var(--muted)}
+.divider{border:none;border-top:1px solid var(--border);margin:14px 0}
+.ptotal{display:flex;justify-content:space-between;font-size:1.05rem;font-weight:700}.ptotal span:last-child{color:var(--gold);font-size:1.2rem}
+.promo-row{display:flex;gap:8px;margin:14px 0}
+.promo-inp{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:0.82rem;outline:none;transition:border-color .2s}
+.promo-inp:focus{border-color:var(--fire)}.promo-inp::placeholder{color:var(--muted);opacity:.5}
+.promo-btn{background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 16px;font-size:0.76rem;font-weight:600;transition:all .2s;cursor:pointer}.promo-btn:hover{border-color:var(--fire);color:var(--fire)}
+.promo-msg{font-size:0.74rem;min-height:16px;margin-bottom:6px}.promo-msg.ok{color:var(--green)}.promo-msg.err{color:var(--fire)}
+.btn-fire{background:var(--fire);color:#fff;border:none;padding:14px;border-radius:10px;font-size:0.88rem;font-weight:700;width:100%;transition:all .25s;display:block;text-align:center;cursor:pointer}
+.btn-fire:hover{background:#cc5418;transform:translateY(-1px);box-shadow:0 8px 22px rgba(232,98,28,0.3)}
+.empty-wrap{text-align:center;padding:80px 0}.empty-emoji{font-size:6rem;margin-bottom:20px;opacity:0.35}
+.empty-title{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:10px}.empty-sub{color:var(--muted);margin-bottom:28px}
+.toasts{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:10px;padding:12px 18px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 28px rgba(0,0,0,0.6);animation:tIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tIn{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}.toast-msg{font-size:0.8rem;font-weight:500}
+@media(max-width:900px){.nav{padding:0 16px}.nav-links{display:none}.wrap{padding:86px 16px 50px}.layout{grid-template-columns:1fr}.panel{position:static}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="logo">SPICE <span>ROUTE</span></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="profile.html">My Orders</a></div>
+  <div class="nav-right">
+    <a href="profile.html" class="nav-signin" id="signinBtn">Sign In</a>
+    <a href="cart.html" class="nav-cart">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></a>
+  </div>
+</nav>
+<div class="wrap"><div id="main"></div></div>
+<div class="toasts" id="toasts"></div>
+<script>
+const MENU_MAP={
+  1:{name:'Hyderabadi Dum Biryani',emoji:'🍛',price:299,veg:false},
+  2:{name:'Mutton Biryani Royal',emoji:'🍛',price:369,veg:false},
+  3:{name:'Paneer Dum Biryani',emoji:'🍛',price:269,veg:true},
+  4:{name:'Chicken Zafrani Biryani',emoji:'🍛',price:319,veg:false},
+  5:{name:'Chicken 65',emoji:'🍗',price:249,veg:false},
+  6:{name:'Paneer Tikka',emoji:'🧆',price:199,veg:true},
+  7:{name:'Seekh Kebab',emoji:'🌮',price:279,veg:false},
+  8:{name:'Samosa Chaat',emoji:'🥟',price:119,veg:true},
+  9:{name:'Hyderabadi Haleem',emoji:'🥘',price:279,veg:false},
+  10:{name:'Butter Chicken',emoji:'🍲',price:299,veg:false},
+  11:{name:'Dal Makhani',emoji:'🫕',price:219,veg:true},
+  12:{name:'Mutton Rogan Josh',emoji:'🍲',price:349,veg:false},
+  13:{name:'Palak Paneer',emoji:'🥬',price:229,veg:true},
+  14:{name:'Butter Naan',emoji:'🫓',price:49,veg:true},
+  15:{name:'Garlic Naan',emoji:'🫓',price:59,veg:true},
+  16:{name:'Roomali Roti',emoji:'🥙',price:39,veg:true},
+  17:{name:'Parotta',emoji:'🫓',price:45,veg:true},
+  18:{name:'Gulab Jamun',emoji:'🍮',price:89,veg:true},
+  19:{name:'Double Ka Meetha',emoji:'🍞',price:99,veg:true},
+  20:{name:'Phirni',emoji:'🍚',price:79,veg:true},
+  21:{name:'Mango Lassi',emoji:'🥭',price:79,veg:true},
+  22:{name:'Masala Chai',emoji:'🫖',price:49,veg:true},
+  23:{name:'Rose Sharbat',emoji:'🌹',price:69,veg:true},
+};
+const PROMOS={SPICE10:0.10,FIRST20:0.20,EMBER5:0.05};
+let promoApplied=false,promoDisc=0;
+function getCart(){try{return JSON.parse(localStorage.getItem('sr_cart')||'{}')}catch{return{}}}
+function saveCart(c){localStorage.setItem('sr_cart',JSON.stringify(c))}
+function cartTotal(){const c=getCart();return Object.entries(c).reduce((s,[id,q])=>{const it=MENU_MAP[id];return s+(it?it.price*q:0)},0)}
+function cartCt(){return Object.values(getCart()).reduce((a,b)=>a+b,0)}
+function updateBadge(){document.querySelectorAll('.cart-badge').forEach(e=>e.textContent=cartCt())}
+function toast(msg){const w=document.getElementById('toasts');const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>✅</span><div class="toast-msg">${msg}</div>`;w.appendChild(t);setTimeout(()=>{t.style.transition='all .3s';t.style.opacity='0';setTimeout(()=>t.remove(),300)},2400)}
+function addToCart(id){const c=getCart();c[id]=(c[id]||0)+1;saveCart(c);updateBadge();render()}
+function removeFromCart(id){const c=getCart();if(c[id]>1)c[id]--;else delete c[id];saveCart(c);updateBadge();render()}
+function delItem(id){const c=getCart();delete c[id];saveCart(c);updateBadge();render()}
+function applyPromo(){
+  const code=document.getElementById('promoInp').value.trim().toUpperCase();const msg=document.getElementById('promoMsg');
+  if(PROMOS[code]){promoApplied=true;promoDisc=Math.round(cartTotal()*PROMOS[code]);msg.className='promo-msg ok';msg.textContent=`🎉 ${(PROMOS[code]*100).toFixed(0)}% off! Saved ₹${promoDisc}`;render();}
+  else{msg.className='promo-msg err';msg.textContent='❌ Try: SPICE10, FIRST20, EMBER5';}
+}
+function render(){
+  const c=getCart();const items=Object.entries(c).map(([id,qty])=>({id:+id,...MENU_MAP[id],qty})).filter(i=>i.name);
+  const el=document.getElementById('main');
+  if(!items.length){el.innerHTML=`<div class="empty-wrap"><div class="empty-emoji">🛒</div><div class="empty-title">Your cart is empty</div><div class="empty-sub">Add something delicious from our menu.</div><a href="menu.html" class="btn-fire" style="display:inline-block;width:auto;padding:13px 32px">🍽️ Browse Menu</a></div>`;return;}
+  const sub=cartTotal(),delivery=49,tax=Math.round(sub*.05),disc=promoApplied?promoDisc:0,total=sub+delivery+tax-disc;
+  el.innerHTML=`<div class="layout"><div>
+    <div class="pg-title">Your Cart</div>
+    <div class="pg-sub">${items.length} item(s) · Est. delivery 28–35 min</div>
+    ${items.map(it=>`<div class="citem">
+      <div class="citem-emoji">${it.emoji}</div>
+      <div class="citem-body"><div class="citem-name">${it.name}</div><div class="citem-sub">₹${it.price} each · ${it.veg?'🟢 Veg':'🔴 Non-veg'}</div></div>
+      <div class="citem-right">
+        <div class="citem-price">₹${it.price*it.qty}</div>
+        <div class="qty-ctrl"><button class="qty-btn" onclick="removeFromCart(${it.id})">−</button><span class="qty-val">${it.qty}</span><button class="qty-btn" onclick="addToCart(${it.id})">+</button></div>
+        <button class="del-btn" onclick="delItem(${it.id})">🗑️</button>
+      </div>
+    </div>`).join('')}
+    <a href="menu.html" style="color:var(--muted);font-size:0.78rem;display:inline-block;margin-top:10px">← Continue Shopping</a>
+  </div>
+  <div><div class="panel">
+    <div class="panel-title">Order Summary</div>
+    <div class="prow"><span class="lbl">Subtotal</span><span>₹${sub}</span></div>
+    <div class="prow"><span class="lbl">Delivery fee</span><span>₹${delivery}</span></div>
+    <div class="prow"><span class="lbl">GST (5%)</span><span>₹${tax}</span></div>
+    ${promoApplied?`<div class="prow" style="color:var(--green)"><span>Promo discount</span><span>−₹${disc}</span></div>`:''}
+    <div class="divider"></div>
+    <div class="ptotal"><span>Total</span><span>₹${total}</span></div>
+    <div class="promo-row"><input class="promo-inp" id="promoInp" type="text" placeholder="Promo code (SPICE10)"><button class="promo-btn" onclick="applyPromo()">Apply</button></div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <a href="checkout.html" class="btn-fire">Proceed to Checkout →</a>
+    <div style="margin-top:10px;font-size:0.7rem;color:var(--muted);text-align:center">🔒 Secure & encrypted checkout</div>
+  </div></div></div>`;
+}
+const user=JSON.parse(sessionStorage.getItem('sr_user')||'null');
+if(user)document.getElementById('signinBtn').textContent='👤 '+user.name.split(' ')[0];
+updateBadge();render();
+</script>
+</body>
+</html>
