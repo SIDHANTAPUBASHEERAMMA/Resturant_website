@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Profile — SPICE ROUTE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}:root{--fire:#e8621c;--gold:#d4960f;--dark:#0d0b08;--card:#181410;--card2:#221c16;--card3:#2a2118;--border:rgba(255,255,255,0.08);--text:#f2ead8;--muted:#8a7a65;--green:#3dba7a}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--fire)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(13,11,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:3px}.logo span{color:var(--fire);font-style:italic}
+.nav-links{display:flex;gap:2px}.nav-links a{color:var(--muted);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:6px;transition:all .2s}.nav-links a:hover,.nav-links a.active{background:var(--card2);color:var(--text)}.nav-links a.active{color:var(--fire)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{background:var(--fire);color:#fff;padding:9px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s}.nav-cart:hover{background:#cc5418}
+.cart-badge{background:var(--gold);color:#000;border-radius:20px;min-width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-signin{border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:7px;font-size:0.75rem;font-weight:500;transition:all .2s}.nav-signin:hover{border-color:var(--fire);color:var(--fire)}
+.wrap{padding:106px 52px 80px;min-height:100vh}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+/* SIDEBAR */
+.sidebar{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:sticky;top:86px}
+.sb-banner{height:90px;background:linear-gradient(135deg,rgba(232,98,28,0.4),rgba(212,150,15,0.3));display:flex;align-items:center;justify-content:center;font-size:3rem}
+.sb-body{padding:0 18px 24px}
+.sb-avatar{width:58px;height:58px;border-radius:50%;background:var(--fire);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-top:-29px;margin-bottom:10px}
+.sb-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:2px}
+.sb-email{font-size:0.7rem;color:var(--muted);margin-bottom:18px}
+.sb-nav{display:flex;flex-direction:column;gap:3px}
+.sb-btn{background:none;border:none;color:var(--muted);text-align:left;padding:10px 12px;border-radius:8px;font-size:0.8rem;font-weight:500;transition:all .2s;width:100%;cursor:pointer}
+.sb-btn:hover,.sb-btn.act{background:rgba(232,98,28,0.12);color:var(--fire)}
+.sb-btn.danger{color:#e06060}.sb-btn.danger:hover{background:rgba(224,96,96,0.1)}
+.content-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:22px}
+.oh-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:13px;transition:border-color .2s;overflow:hidden}
+.oh-card:hover{border-color:rgba(232,98,28,0.25)}
+.oh-banner{height:80px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:2.2rem;background:var(--card2)}
+.oh-body{padding:15px 18px}
+.oh-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;flex-wrap:wrap;gap:8px}
+.oh-id{font-size:0.68rem;letter-spacing:1px;color:var(--muted);margin-bottom:2px}
+.oh-date{font-size:0.72rem;color:var(--muted)}
+.oh-status{font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px}
+.oh-status.delivered{background:rgba(61,186,122,0.15);color:var(--green)}.oh-status.processing{background:rgba(212,150,15,0.15);color:var(--gold)}
+.oh-items{font-size:0.8rem;color:var(--muted);margin-bottom:11px;line-height:1.5}
+.oh-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.oh-total{font-weight:700;color:var(--gold)}
+.reorder-btn{background:none;border:1px solid var(--fire);color:var(--fire);padding:7px 16px;border-radius:8px;font-size:0.73rem;font-weight:600;transition:all .2s;cursor:pointer}.reorder-btn:hover{background:var(--fire);color:#fff}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fl{font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.fi{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:0.86rem;outline:none;transition:border-color .2s;width:100%}
+.fi:focus{border-color:var(--fire)}.fi::placeholder{color:var(--muted);opacity:.5}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-fire{background:var(--fire);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:0.84rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer}
+.btn-fire:hover{background:#cc5418;transform:translateY(-1px)}
+.tag{padding:6px 13px;border-radius:20px;border:1px solid var(--border);font-size:0.73rem;cursor:pointer;transition:all .2s;display:inline-block;margin:3px}
+.tag:hover,.tag.on{border-color:var(--fire);background:rgba(232,98,28,0.12);color:var(--fire)}
+/* AUTH MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:22px;overflow:hidden;width:100%;max-width:420px;position:relative;transform:scale(.96) translateY(8px);transition:transform .3s}
+.modal-bg.open .modal{transform:none}
+.modal-banner{height:140px;display:flex;align-items:center;justify-content:center;font-size:6rem;background:linear-gradient(135deg,rgba(232,98,28,0.3),rgba(212,150,15,0.2))}
+.modal-body{padding:26px 28px 28px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;margin-bottom:5px}
+.modal-sub{color:var(--muted);font-size:0.8rem;margin-bottom:20px}
+.modal-close{position:absolute;top:12px;right:14px;background:rgba(0,0,0,0.4);border:none;color:#fff;font-size:1rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.or-row{display:flex;align-items:center;gap:10px;margin:12px 0;font-size:0.68rem;color:var(--muted)}
+.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:var(--border)}
+.social-btn{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:11px;font-size:0.82rem;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;cursor:pointer}
+.social-btn:hover{border-color:var(--gold)}
+.modal-switch{text-align:center;margin-top:15px;font-size:0.78rem;color:var(--muted)}
+.modal-switch button{background:none;border:none;color:var(--fire);font-weight:600;font-size:0.78rem;cursor:pointer}
+.btn-fire-w{background:var(--fire);color:#fff;border:none;padding:12px;border-radius:10px;font-size:0.88rem;font-weight:700;width:100%;transition:all .25s;display:block;text-align:center;margin-top:4px;cursor:pointer}
+.btn-fire-w:hover{background:#cc5418}
+.toasts{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:10px;padding:12px 18px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 28px rgba(0,0,0,.6);animation:tIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tIn{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}.toast-msg{font-size:0.8rem;font-weight:500}
+@media(max-width:900px){.nav{padding:0 16px}.nav-links{display:none}.wrap{padding:86px 16px 50px}.layout{grid-template-columns:1fr}.sidebar{position:static}.frow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="logo">SPICE <span>ROUTE</span></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="profile.html" class="active">My Orders</a></div>
+  <div class="nav-right">
+    <a href="profile.html" class="nav-signin" id="signinBtn">Sign In</a>
+    <a href="cart.html" class="nav-cart">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></a>
+  </div>
+</nav>
+<div class="wrap" id="mainWrap"></div>
+
+<!-- AUTH MODAL -->
+<div class="modal-bg" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()">✕</button>
+    <div class="modal-banner">🍛</div>
+    <div class="modal-body" id="authInner"></div>
+  </div>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script>
+const ORDERS=[
+  {id:'#SR-9102',date:'18 Mar 2026',items:'Hyderabadi Haleem, Seekh Kebab ×2, Gulab Jamun',total:'₹696',status:'processing',emojis:'🥘🌮🍮'},
+  {id:'#SR-8821',date:'15 Mar 2026',items:'Dum Biryani, Garlic Naan ×2, Mango Lassi',total:'₹476',status:'delivered',emojis:'🍛🫓🥭'},
+  {id:'#SR-8753',date:'10 Mar 2026',items:'Butter Chicken, Dal Makhani, Roomali Roti ×3',total:'₹635',status:'delivered',emojis:'🍲🫕🥙'},
+  {id:'#SR-8610',date:'4 Mar 2026',items:'Mutton Biryani Royal, Phirni ×2',total:'₹527',status:'delivered',emojis:'🍛🍚'},
+];
+let activeTab='orders';
+function getCart(){try{return JSON.parse(localStorage.getItem('sr_cart')||'{}')}catch{return{}}}
+function cartCt(){return Object.values(getCart()).reduce((a,b)=>a+b,0)}
+function updateBadge(){document.querySelectorAll('.cart-badge').forEach(e=>e.textContent=cartCt())}
+function getUser(){return JSON.parse(sessionStorage.getItem('sr_user')||'null')}
+function saveUser(u){sessionStorage.setItem('sr_user',JSON.stringify(u))}
+function toast(msg){const w=document.getElementById('toasts');const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>👋</span><div class="toast-msg">${msg}</div>`;w.appendChild(t);setTimeout(()=>{t.style.transition='all .3s';t.style.opacity='0';setTimeout(()=>t.remove(),300)},2400)}
+function openAuth(mode='login'){renderAuthForm(mode);requestAnimationFrame(()=>document.getElementById('authModal').classList.add('open'))}
+function closeAuth(){document.getElementById('authModal').classList.remove('open')}
+document.getElementById('authModal').addEventListener('click',e=>{if(e.target===document.getElementById('authModal'))closeAuth()});
+function renderAuthForm(mode){
+  const el=document.getElementById('authInner');
+  if(mode==='login'){
+    el.innerHTML=`<div class="modal-title">Welcome back 👋</div><div class="modal-sub">Sign in to track orders and get exclusive deals.</div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="li-email" type="email" placeholder="you@example.com"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="li-pass" type="password" placeholder="••••••••"></div>
+      <button class="btn-fire-w" onclick="doLogin()">Sign In →</button>
+      <div class="or-row">or</div>
+      <button class="social-btn" onclick="quickLogin()">🔑 Continue with Google</button>
+      <div class="modal-switch">No account? <button onclick="renderAuthForm('signup')">Sign up free</button></div>`;
+  }else{
+    el.innerHTML=`<div class="modal-title">Create account ✨</div><div class="modal-sub">Join us — get ₹100 off with code FIRST20!</div>
+      <div class="fg"><label class="fl">Full Name</label><input class="fi" id="su-name" placeholder="Arjun Reddy"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="su-email" type="email" placeholder="you@example.com"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="su-pass" type="password" placeholder="Min. 8 characters"></div>
+      <button class="btn-fire-w" onclick="doSignup()">Create Account →</button>
+      <div class="or-row">or</div>
+      <button class="social-btn" onclick="quickLogin()">🔑 Continue with Google</button>
+      <div class="modal-switch">Already have account? <button onclick="renderAuthForm('login')">Sign in</button></div>`;
+  }
+}
+function doLogin(){const e=document.getElementById('li-email')?.value,p=document.getElementById('li-pass')?.value;if(!e||!p){toast('Please fill all fields');return;}const u={name:e.split('@')[0],email:e};saveUser(u);closeAuth();renderPage();updateNavAuth();toast('Welcome back, '+u.name+'!')}
+function doSignup(){const n=document.getElementById('su-name')?.value,e=document.getElementById('su-email')?.value,p=document.getElementById('su-pass')?.value;if(!n||!e||!p){toast('Please fill all fields');return;}const u={name:n,email:e};saveUser(u);closeAuth();renderPage();updateNavAuth();toast('Account created! Welcome, '+n+'!')}
+function quickLogin(){const u={name:'Arjun Reddy',email:'arjun@example.com'};saveUser(u);closeAuth();renderPage();updateNavAuth();toast('Welcome, Arjun!')}
+function updateNavAuth(){const user=getUser();document.getElementById('signinBtn').textContent=user?'👤 '+user.name.split(' ')[0]:'Sign In';}
+function doLogout(){sessionStorage.removeItem('sr_user');updateNavAuth();renderPage();toast('Signed out. See you soon!')}
+function setTab(t){activeTab=t;document.querySelectorAll('.sb-btn[data-t]').forEach(b=>b.classList.remove('act'));document.querySelector(`.sb-btn[data-t="${t}"]`)?.classList.add('act');renderTab()}
+function renderPage(){
+  const user=getUser();const el=document.getElementById('mainWrap');
+  if(!user){
+    el.innerHTML=`<div style="text-align:center;padding:80px 0">
+      <div style="font-size:6rem;margin-bottom:16px;opacity:0.3">🔒</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:10px">Sign in to view your profile</div>
+      <p style="color:var(--muted);margin-bottom:28px">Track your orders, save addresses and get exclusive deals.</p>
+      <button class="btn-fire" onclick="openAuth('login')">Sign In</button>
+    </div>`;return;
+  }
+  el.innerHTML=`<div class="layout">
+    <div class="sidebar">
+      <div class="sb-banner">🍛</div>
+      <div class="sb-body">
+        <div class="sb-avatar">👤</div>
+        <div class="sb-name">${user.name}</div>
+        <div class="sb-email">${user.email}</div>
+        <div class="sb-nav">
+          <button class="sb-btn act" data-t="orders" onclick="setTab('orders')">📦 Order History</button>
+          <button class="sb-btn" data-t="addresses" onclick="setTab('addresses')">📍 Addresses</button>
+          <button class="sb-btn" data-t="prefs" onclick="setTab('prefs')">🍽️ Food Preferences</button>
+          <button class="sb-btn" data-t="account" onclick="setTab('account')">⚙️ Account Settings</button>
+          <button class="sb-btn danger" onclick="doLogout()">🚪 Sign Out</button>
+        </div>
+      </div>
+    </div>
+    <div id="tabContent"></div>
+  </div>`;
+  renderTab();
+}
+function renderTab(){
+  const el=document.getElementById('tabContent');if(!el)return;const user=getUser();
+  if(activeTab==='orders'){
+    el.innerHTML=`<div class="content-title">Order History</div>`+
+    ORDERS.map(o=>`<div class="oh-card">
+      <div class="oh-banner">${o.emojis.split('').join(' ')}</div>
+      <div class="oh-body">
+        <div class="oh-head"><div><div class="oh-id">${o.id}</div><div class="oh-date">${o.date}</div></div><span class="oh-status ${o.status}">${o.status.charAt(0).toUpperCase()+o.status.slice(1)}</span></div>
+        <div class="oh-items">${o.items}</div>
+        <div class="oh-foot"><div class="oh-total">${o.total}</div><button class="reorder-btn" onclick="toast('Items added to cart!')">Reorder</button></div>
+      </div>
+    </div>`).join('');
+  }else if(activeTab==='addresses'){
+    el.innerHTML=`<div class="content-title">Saved Addresses</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:13px">
+        <div style="height:80px;background:linear-gradient(135deg,rgba(232,98,28,0.2),rgba(212,150,15,0.15));display:flex;align-items:center;justify-content:center;font-size:2rem">🏠</div>
+        <div style="padding:15px 18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+            <div style="font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--fire)">Home</div>
+            <span style="font-size:0.62rem;background:rgba(61,186,122,0.15);color:var(--green);padding:2px 8px;border-radius:10px">Default</span>
+          </div>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:3px">Flat 4B, Sunrise Residency</div>
+          <div style="font-size:0.78rem;color:var(--muted)">Road No. 12, Banjara Hills, Hyderabad – 500034</div>
+        </div>
+      </div>
+      <button style="width:100%;background:none;border:1.5px dashed rgba(255,255,255,0.12);color:var(--muted);padding:14px;border-radius:12px;font-size:0.83rem;transition:all .2s;cursor:pointer" onmouseover="this.style.borderColor='var(--fire)';this.style.color='var(--fire)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='var(--muted)'">+ Add New Address</button>`;
+  }else if(activeTab==='prefs'){
+    const tags=['Vegetarian','Non-Vegetarian','Vegan','Gluten-Free','No Onion-Garlic','Extra Spicy','Mild','Dairy-Free'];
+    el.innerHTML=`<div class="content-title">Food Preferences</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:13px;padding:24px;margin-bottom:18px">
+        <div style="font-size:0.75rem;font-weight:600;margin-bottom:14px">Select your dietary preferences</div>
+        <div>${tags.map(t=>`<span class="tag" onclick="this.classList.toggle('on')">${t}</span>`).join('')}</div>
+      </div>
+      <button class="btn-fire" onclick="toast('Preferences saved!')">Save Preferences</button>`;
+  }else if(activeTab==='account'){
+    el.innerHTML=`<div class="content-title">Account Settings</div>
+      <div class="frow" style="margin-bottom:0">
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" value="${user.name}"></div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="${user.email}"></div>
+        <div class="fg"><label class="fl">Phone</label><input class="fi" placeholder="+91 98765 43210"></div>
+        <div class="fg"><label class="fl">Birthday</label><input class="fi" type="date"></div>
+      </div>
+      <div class="fg"><label class="fl">New Password</label><input class="fi" type="password" placeholder="Leave blank to keep current"></div>
+      <button class="btn-fire" onclick="toast('Profile updated!')">Save Changes</button>`;
+  }
+}
+updateBadge();updateNavAuth();renderPage();
+</script>
+</body>
+</html>
