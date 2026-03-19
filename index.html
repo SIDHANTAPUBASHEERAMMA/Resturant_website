@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SPICE ROUTE — Authentic Indian Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fire:#e8621c;--gold:#d4960f;--dark:#0d0b08;
+  --card:#181410;--card2:#221c16;--card3:#2a2118;
+  --border:rgba(255,255,255,0.08);--text:#f2ead8;--muted:#8a7a65;--green:#3dba7a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--fire);border-radius:2px}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(13,11,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:3px}
+.logo span{color:var(--fire);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{color:var(--muted);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:6px;transition:all .2s}
+.nav-links a:hover,.nav-links a.active{background:var(--card2);color:var(--text)}
+.nav-links a.active{color:var(--fire)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{background:var(--fire);color:#fff;padding:9px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s}
+.nav-cart:hover{background:#cc5418;transform:translateY(-1px)}
+.cart-badge{background:var(--gold);color:#000;border-radius:20px;min-width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-signin{border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:7px;font-size:0.75rem;font-weight:500;transition:all .2s}
+.nav-signin:hover{border-color:var(--fire);color:var(--fire)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 80% at 70% 50%,rgba(232,98,28,0.18) 0%,transparent 65%),linear-gradient(150deg,#0d0b08 0%,#1a1008 100%)}
+.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 49px,rgba(255,255,255,.03) 49px,rgba(255,255,255,.03) 50px),repeating-linear-gradient(90deg,transparent,transparent 49px,rgba(255,255,255,.03) 49px,rgba(255,255,255,.03) 50px)}
+.hero-body{position:relative;z-index:2;padding:0 56px;padding-top:68px;max-width:680px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--fire);background:rgba(232,98,28,0.12);border:1px solid rgba(232,98,28,0.28);padding:6px 16px;border-radius:30px;margin-bottom:28px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,6.5vw,5.8rem);line-height:0.92;font-weight:900;margin-bottom:26px}
+.hero-title .t2{font-style:italic;color:var(--fire);display:block}
+.hero-title .t3{color:var(--gold);display:block}
+.hero-p{color:rgba(242,234,216,0.55);font-size:0.95rem;line-height:1.85;max-width:430px;margin-bottom:42px;font-weight:300}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-fire{background:var(--fire);color:#fff;border:none;padding:14px 30px;border-radius:10px;font-size:0.85rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer;text-decoration:none}
+.btn-fire:hover{background:#cc5418;transform:translateY(-2px);box-shadow:0 10px 28px rgba(232,98,28,0.35)}
+.btn-ghost{background:none;color:var(--text);border:1px solid rgba(255,255,255,0.18);padding:14px 30px;border-radius:10px;font-size:0.85rem;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer;text-decoration:none}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-right{position:absolute;right:56px;top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:14px}
+.stat-card{background:rgba(24,20,16,0.9);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:16px;padding:18px 26px;text-align:center;min-width:150px}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--gold);line-height:1}
+.stat-lbl{font-size:0.62rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+
+/* ─── SECTIONS ─── */
+.sec{padding:80px 52px}
+.eyebrow{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--fire);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--fire)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;margin-bottom:12px;line-height:1.1}
+
+/* ─── CAT PILLS ─── */
+.cat-row{display:flex;gap:10px;flex-wrap:wrap;padding:0 52px 56px}
+.cat-pill{display:flex;align-items:center;gap:8px;padding:10px 22px;border-radius:40px;border:1px solid var(--border);background:var(--card);font-size:0.82rem;font-weight:500;color:var(--text);transition:all .2s}
+.cat-pill:hover{border-color:var(--fire);background:rgba(232,98,28,0.1);color:var(--fire)}
+
+/* ─── PROMO ─── */
+.promo{margin:0 52px 64px;background:linear-gradient(120deg,rgba(232,98,28,0.15),rgba(212,150,15,0.1));border:1px solid rgba(232,98,28,0.22);border-radius:16px;padding:30px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.promo-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;margin-bottom:5px}
+.promo-sub{color:var(--muted);font-size:0.83rem}
+.promo-code{background:rgba(232,98,28,0.15);border:2px dashed rgba(232,98,28,0.5);padding:10px 22px;border-radius:10px;font-size:0.85rem;font-weight:800;letter-spacing:3px;color:var(--fire)}
+
+/* ─── FOOD CARDS ─── */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.food-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .3s}
+.food-card:hover{transform:translateY(-5px);border-color:rgba(232,98,28,0.35);box-shadow:0 18px 44px rgba(0,0,0,0.55)}
+.fc-top{height:160px;display:flex;align-items:center;justify-content:center;background:var(--card2);position:relative;font-size:5rem}
+.fc-badge{position:absolute;top:10px;left:10px;background:var(--fire);color:#fff;font-size:0.58rem;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
+.fc-body{padding:15px}
+.fc-cat{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:5px}
+.fc-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:5px}
+.fc-desc{font-size:0.74rem;color:var(--muted);line-height:1.6;margin-bottom:13px}
+.fc-foot{display:flex;align-items:center;justify-content:space-between}
+.fc-price{font-size:1.1rem;font-weight:700;color:var(--gold)}
+.fc-rating{font-size:0.68rem;color:var(--muted);margin-top:2px}
+.add-btn{background:var(--fire);border:none;color:#fff;width:34px;height:34px;border-radius:8px;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all .2s;cursor:pointer}
+.add-btn:hover{background:#cc5418;transform:scale(1.1)}
+.qty-ctrl{display:flex;align-items:center;gap:4px;background:var(--card3);border:1px solid var(--border);border-radius:8px;padding:2px}
+.qty-btn{background:none;border:none;color:var(--gold);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:1rem;border-radius:6px;transition:background .15s;cursor:pointer}
+.qty-btn:hover{background:var(--fire);color:#fff}
+.qty-val{font-size:0.82rem;font-weight:700;min-width:18px;text-align:center;color:var(--text)}
+
+/* ─── WHY US ─── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.why-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:30px 22px;text-align:center;transition:all .3s}
+.why-card:hover{border-color:rgba(232,98,28,0.3);transform:translateY(-3px)}
+.why-emoji{font-size:2.8rem;margin-bottom:16px}
+.why-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.why-desc{font-size:0.78rem;color:var(--muted);line-height:1.7}
+
+/* ─── GALLERY GRID (emoji-based) ─── */
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px;gap:12px}
+.gal-item{border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:5rem;background:var(--card2);border:1px solid var(--border);transition:transform .3s}
+.gal-item:hover{transform:scale(1.03)}
+.gal-item:first-child{grid-column:span 2;grid-row:span 2;font-size:9rem}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px}
+.testi-stars{color:var(--gold);margin-bottom:12px;font-size:1rem}
+.testi-text{font-size:0.85rem;line-height:1.7;color:rgba(242,234,216,0.8);margin-bottom:18px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--card3);border:2px solid var(--fire);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.testi-name{font-size:0.83rem;font-weight:600}
+.testi-loc{font-size:0.68rem;color:var(--muted)}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--card);border-top:1px solid var(--border);padding:56px 52px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:var(--gold);letter-spacing:3px;margin-bottom:12px}
+.footer-logo span{color:var(--fire);font-style:italic}
+.footer-tagline{color:var(--muted);font-size:0.8rem;line-height:1.8;max-width:250px}
+.footer-col h4{font-size:0.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--fire);margin-bottom:16px}
+.footer-col a{display:block;color:var(--muted);font-size:0.8rem;margin-bottom:9px;transition:color .2s}
+.footer-col a:hover{color:var(--text)}
+.footer-btm{border-top:1px solid var(--border);padding:16px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:0.7rem;color:var(--muted)}
+
+/* ─── TOAST ─── */
+.toasts{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:10px;padding:13px 18px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 28px rgba(0,0,0,0.6);animation:tIn .35s cubic-bezier(.34,1.56,.64,1);max-width:300px}
+@keyframes tIn{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+.toast-msg{font-size:0.82rem;font-weight:500}
+
+@media(max-width:900px){
+  .nav{padding:0 16px}.nav-links{display:none}
+  .hero-body,.sec{padding-left:16px;padding-right:16px}
+  .cat-row,.promo{padding-left:16px;padding-right:16px;margin-left:0;margin-right:0}
+  .hero-right{display:none}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gal-item:first-child{grid-column:span 2;grid-row:span 1;height:180px}
+  .footer{padding:40px 16px 0}.footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="logo">SPICE <span>ROUTE</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="profile.html">My Orders</a>
+  </div>
+  <div class="nav-right">
+    <a href="profile.html" class="nav-signin" id="signinBtn">Sign In</a>
+    <a href="cart.html" class="nav-cart">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-body">
+    <div class="hero-badge">⚡ 30-Minute Delivery · Hyderabad</div>
+    <h1 class="hero-title">
+      Authentic
+      <span class="t2">Indian Flavours</span>
+      <span class="t3">Delivered Hot.</span>
+    </h1>
+    <p class="hero-p">From ancient clay ovens of Hyderabad to your doorstep — fire-crafted dishes built on generations of culinary heritage.</p>
+    <div class="hero-btns">
+      <a href="menu.html" class="btn-fire">🍽️ Order Now</a>
+      <a href="about.html" class="btn-ghost">Our Story →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card"><div class="stat-num">4.9★</div><div class="stat-lbl">Avg Rating</div></div>
+    <div class="stat-card"><div class="stat-num">50+</div><div class="stat-lbl">Dishes</div></div>
+    <div class="stat-card"><div class="stat-num">28 min</div><div class="stat-lbl">Avg Delivery</div></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<div class="sec" style="padding-bottom:8px">
+  <div class="eyebrow">Browse by Type</div>
+  <h2 class="sec-title">What are you craving?</h2>
+</div>
+<div class="cat-row">
+  <a href="menu.html#biryani" class="cat-pill">🍛 Biryani</a>
+  <a href="menu.html#starters" class="cat-pill">🍗 Starters</a>
+  <a href="menu.html#mains" class="cat-pill">🥘 Main Course</a>
+  <a href="menu.html#breads" class="cat-pill">🫓 Breads</a>
+  <a href="menu.html#desserts" class="cat-pill">🍮 Desserts</a>
+  <a href="menu.html#drinks" class="cat-pill">🥤 Drinks</a>
+</div>
+
+<!-- PROMO -->
+<div class="promo">
+  <div>
+    <div class="promo-title">🎉 First order? Save 20%!</div>
+    <div class="promo-sub">Use code <strong>FIRST20</strong> at checkout — no minimum order value.</div>
+  </div>
+  <div class="promo-code">FIRST20</div>
+  <a href="menu.html" class="btn-fire">Order Now</a>
+</div>
+
+<!-- BESTSELLERS -->
+<div class="sec">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:14px">
+    <div>
+      <div class="eyebrow">Top Picks</div>
+      <h2 class="sec-title" style="margin-bottom:0">Bestsellers</h2>
+    </div>
+    <a href="menu.html" class="btn-ghost">Full Menu →</a>
+  </div>
+  <div class="food-grid" id="bestGrid"></div>
+</div>
+
+<!-- WHY US -->
+<div class="sec" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div style="text-align:center;margin-bottom:44px">
+    <div class="eyebrow" style="justify-content:center">Why Choose Us</div>
+    <h2 class="sec-title" style="text-align:center">The SPICE ROUTE difference</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-emoji">🔥</div><div class="why-title">Live Fire Cooking</div><div class="why-desc">Every dish cooked over traditional charcoal. Smoky depth that gas can never replicate.</div></div>
+    <div class="why-card"><div class="why-emoji">🌿</div><div class="why-title">Farm-Fresh Daily</div><div class="why-desc">Ingredients sourced fresh every morning from Telangana farms. No frozen produce. Ever.</div></div>
+    <div class="why-card"><div class="why-emoji">⚡</div><div class="why-title">30-Min Delivery</div><div class="why-desc">Our fleet ensures your food arrives piping hot within 30 minutes — guaranteed.</div></div>
+    <div class="why-card"><div class="why-emoji">💳</div><div class="why-title">Secure Payments</div><div class="why-desc">Card, UPI, wallet, or cash. All methods accepted. Safe and seamless checkout.</div></div>
+    <div class="why-card"><div class="why-emoji">🏆</div><div class="why-title">Award Winning</div><div class="why-desc">Ranked #1 Indian restaurant in Hyderabad by Times Food Guide 2024.</div></div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="sec">
+  <div style="text-align:center;margin-bottom:36px">
+    <div class="eyebrow" style="justify-content:center">Our Kitchen</div>
+    <h2 class="sec-title" style="text-align:center">Crafted with passion</h2>
+  </div>
+  <div class="gal-grid">
+    <div class="gal-item">🍛</div>
+    <div class="gal-item">🔥</div>
+    <div class="gal-item">🥘</div>
+    <div class="gal-item">🫓</div>
+    <div class="gal-item">🍮</div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="sec" style="background:var(--card);border-top:1px solid var(--border)">
+  <div style="text-align:center;margin-bottom:36px">
+    <div class="eyebrow" style="justify-content:center">Happy Customers</div>
+    <h2 class="sec-title" style="text-align:center">What people are saying</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">⭐⭐⭐⭐⭐</div><div class="testi-text">"The Dum Biryani is absolutely unreal. Best I've had in Hyderabad — the seal, the aroma, the rice. Pure perfection."</div><div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Rahul Verma</div><div class="testi-loc">Banjara Hills</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">⭐⭐⭐⭐⭐</div><div class="testi-text">"Ordered at 10pm, arrived in 25 minutes still steaming hot. The Haleem is genuinely the best I've ever had. Will order weekly!"</div><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Priya Nair</div><div class="testi-loc">Jubilee Hills</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">⭐⭐⭐⭐⭐</div><div class="testi-text">"Butter Chicken with Garlic Naan — chef's kiss. The packaging keeps everything fresh. My whole family is hooked now."</div><div class="testi-author"><div class="testi-avatar">🧑</div><div><div class="testi-name">Karan Singh</div><div class="testi-loc">Gachibowli</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">⭐⭐⭐⭐⭐</div><div class="testi-text">"Best Double Ka Meetha outside a 5-star hotel. Spice Route captures authentic Hyderabadi flavour like nowhere else."</div><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Anjali Reddy</div><div class="testi-loc">Kondapur</div></div></div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="sec" style="text-align:center;background:linear-gradient(135deg,rgba(232,98,28,0.12),rgba(212,150,15,0.08));border-top:1px solid rgba(232,98,28,0.18)">
+  <div style="font-size:3rem;margin-bottom:16px">🍽️</div>
+  <h2 class="sec-title" style="text-align:center;margin-bottom:10px">Ready to order?</h2>
+  <p style="color:var(--muted);margin-bottom:30px">Browse our full menu of 23 authentic dishes.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="menu.html" class="btn-fire">🍽️ Browse Menu</a>
+    <a href="contact.html" class="btn-ghost">📞 Contact Us</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">SPICE <span>ROUTE</span></div>
+      <p class="footer-tagline">Authentic Hyderabadi flavours crafted over live fire, delivered to your door in 30 minutes.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a><a href="menu.html">Full Menu</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="profile.html">My Orders</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a>+91 98765 43210</a><a>hello@spiceroute.in</a><a>Banjara Hills, Hyderabad</a><a>Mon–Sun · 11AM–11PM</a>
+    </div>
+  </div>
+  <div class="footer-btm">
+    <span class="footer-copy">© 2026 Spice Route Restaurants Pvt. Ltd. All rights reserved.</span>
+    <div style="display:flex;gap:18px"><a style="font-size:0.7rem;color:var(--muted)">Privacy</a><a style="font-size:0.7rem;color:var(--muted)">Terms</a><a style="font-size:0.7rem;color:var(--muted)">Refund</a></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+const FOODS=[
+  {id:1,name:'Hyderabadi Dum Biryani',cat:'Biryani',emoji:'🍛',price:299,desc:'Slow-cooked aged basmati sealed with dough, saffron & caramelised onions.',badge:'bestseller',r:'4.9',rv:'2.8k'},
+  {id:5,name:'Chicken 65',cat:'Starters',emoji:'🍗',price:249,desc:'Deep-fried with South Indian spices, curry leaves & green chillies.',badge:'hot',r:'4.9',rv:'3.1k'},
+  {id:9,name:'Hyderabadi Haleem',cat:'Mains',emoji:'🥘',price:279,desc:'Overnight slow-cooked wheat & mutton — a UNESCO-heritage delicacy.',badge:'heritage',r:'4.9',rv:'2.2k'},
+  {id:10,name:'Butter Chicken',cat:'Mains',emoji:'🍲',price:299,desc:'Tandoor-roasted chicken in a velvety tomato-cream-butter sauce.',badge:'popular',r:'4.8',rv:'4.5k'},
+  {id:15,name:'Garlic Naan',cat:'Breads',emoji:'🫓',price:59,desc:'Minced garlic, coriander & butter on freshly baked tandoor naan.',badge:'fan fav',r:'4.9',rv:'4.8k'},
+  {id:21,name:'Mango Lassi',cat:'Drinks',emoji:'🥭',price:79,desc:'Yoghurt blended with Alphonso mangoes, cardamom & saffron.',badge:'seasonal',r:'4.9',rv:'3.2k'},
+];
+
+function getCart(){try{return JSON.parse(localStorage.getItem('sr_cart')||'{}')}catch{return{}}}
+function saveCart(c){localStorage.setItem('sr_cart',JSON.stringify(c))}
+function cartCount(){return Object.values(getCart()).reduce((a,b)=>a+b,0)}
+function updateBadge(){document.querySelectorAll('.cart-badge').forEach(e=>e.textContent=cartCount())}
+
+function toast(msg){
+  const w=document.getElementById('toasts');
+  const t=document.createElement('div');t.className='toast';
+  t.innerHTML=`<span style="font-size:1.1rem">🛒</span><div class="toast-msg">${msg}</div>`;
+  w.appendChild(t);
+  setTimeout(()=>{t.style.transition='all .3s';t.style.opacity='0';t.style.transform='translateX(60px)';setTimeout(()=>t.remove(),300)},2500);
+}
+
+function addToCart(id,name,price){
+  const c=getCart();c[id]=(c[id]||0)+1;saveCart(c);updateBadge();
+  toast(name+' added! ₹'+price);renderBest();
+}
+function removeFromCart(id){
+  const c=getCart();if(c[id]>1)c[id]--;else delete c[id];saveCart(c);updateBadge();renderBest();
+}
+
+function ctrl(id,name,price){
+  const qty=getCart()[id]||0;
+  const n=name.replace(/'/g,"\\'");
+  if(qty>0)return`<div class="qty-ctrl"><button class="qty-btn" onclick="removeFromCart(${id})">−</button><span class="qty-val">${qty}</span><button class="qty-btn" onclick="addToCart(${id},'${n}',${price})">+</button></div>`;
+  return`<button class="add-btn" onclick="addToCart(${id},'${n}',${price})">+</button>`;
+}
+
+function renderBest(){
+  document.getElementById('bestGrid').innerHTML=FOODS.map(f=>`
+    <div class="food-card">
+      <div class="fc-top">
+        ${f.badge?`<span class="fc-badge">${f.badge}</span>`:''}
+        ${f.emoji}
+      </div>
+      <div class="fc-body">
+        <div class="fc-cat">${f.cat}</div>
+        <div class="fc-name">${f.name}</div>
+        <div class="fc-desc">${f.desc}</div>
+        <div class="fc-foot">
+          <div><div class="fc-price">₹${f.price}</div><div class="fc-rating">⭐ ${f.r} (${f.rv})</div></div>
+          ${ctrl(f.id,f.name,f.price)}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+const user=JSON.parse(sessionStorage.getItem('sr_user')||'null');
+if(user)document.getElementById('signinBtn').textContent='👤 '+user.name.split(' ')[0];
+updateBadge();renderBest();
+</script>
+</body>
+</html>
