@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — SPICE ROUTE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}:root{--fire:#e8621c;--gold:#d4960f;--dark:#0d0b08;--card:#181410;--card2:#221c16;--card3:#2a2118;--border:rgba(255,255,255,0.08);--text:#f2ead8;--muted:#8a7a65;--green:#3dba7a}
+html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--fire)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(13,11,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:3px}.logo span{color:var(--fire);font-style:italic}
+.nav-links{display:flex;gap:2px}.nav-links a{color:var(--muted);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:6px;transition:all .2s}.nav-links a:hover,.nav-links a.active{background:var(--card2);color:var(--text)}.nav-links a.active{color:var(--fire)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{background:var(--fire);color:#fff;padding:9px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s}.nav-cart:hover{background:#cc5418}
+.cart-badge{background:var(--gold);color:#000;border-radius:20px;min-width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-signin{border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:7px;font-size:0.75rem;font-weight:500;transition:all .2s}.nav-signin:hover{border-color:var(--fire);color:var(--fire)}
+.hero{padding:130px 52px 64px;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(232,98,28,0.14) 0%,transparent 65%),var(--dark)}
+.eyebrow{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--fire);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--fire)}
+.pg-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;margin-bottom:8px}
+.pg-sub{color:var(--muted);font-size:0.9rem;max-width:420px;line-height:1.7}
+.contact-wrap{padding:60px 52px 80px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.info-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;margin-bottom:22px}
+.iblock{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
+.iblock:hover{border-color:rgba(232,98,28,0.3)}
+.iblock-icon{width:48px;height:48px;border-radius:12px;background:rgba(232,98,28,0.15);border:1px solid rgba(232,98,28,0.2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.iblock-label{font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--fire);margin-bottom:4px}
+.iblock-val{font-size:0.85rem;color:var(--text);line-height:1.6}
+.form-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px}
+.form-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;margin-bottom:5px}
+.form-sub{color:var(--muted);font-size:0.8rem;margin-bottom:22px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fl{font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.fi{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:0.86rem;outline:none;transition:border-color .2s;width:100%}
+.fi:focus{border-color:var(--fire)}.fi::placeholder{color:var(--muted);opacity:.5}
+textarea.fi{resize:vertical;min-height:110px}
+.btn-fire{background:var(--fire);color:#fff;border:none;padding:13px;border-radius:10px;font-size:0.88rem;font-weight:700;width:100%;transition:all .25s;cursor:pointer}
+.btn-fire:hover{background:#cc5418;transform:translateY(-1px)}
+.sent-box{display:none;text-align:center;padding:36px}
+.sent-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;margin:14px 0 8px}
+.sent-sub{color:var(--muted);font-size:0.83rem}
+.map-box{margin:0 52px 64px;background:var(--card);border:1px solid var(--border);border-radius:16px;height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.map-box-emoji{font-size:4rem}
+.map-box-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
+.map-box-sub{color:var(--muted);font-size:0.83rem}
+.footer{background:var(--card);border-top:1px solid var(--border);padding:52px 52px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:var(--gold);letter-spacing:3px;margin-bottom:12px}.footer-logo span{color:var(--fire);font-style:italic}
+.footer-col h4{font-size:0.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--fire);margin-bottom:16px}
+.footer-col a{display:block;color:var(--muted);font-size:0.8rem;margin-bottom:9px;transition:color .2s}.footer-col a:hover{color:var(--text)}
+.footer-btm{border-top:1px solid var(--border);padding:16px 0;display:flex;justify-content:space-between}.footer-copy{font-size:0.7rem;color:var(--muted)}
+.toasts{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:10px;padding:12px 18px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 28px rgba(0,0,0,0.6);animation:tIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tIn{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}.toast-msg{font-size:0.8rem;font-weight:500}
+@media(max-width:900px){.nav{padding:0 16px}.nav-links{display:none}.hero{padding:100px 16px 40px}.contact-wrap{grid-template-columns:1fr;padding:40px 16px 60px}.frow{grid-template-columns:1fr}.map-box{margin:0 16px 40px}.footer{padding:40px 16px 0}.footer-grid{grid-template-columns:1fr 1fr;gap:24px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="logo">SPICE <span>ROUTE</span></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a><a href="profile.html">My Orders</a></div>
+  <div class="nav-right">
+    <a href="profile.html" class="nav-signin" id="signinBtn">Sign In</a>
+    <a href="cart.html" class="nav-cart">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="eyebrow">Get in Touch</div>
+  <h1 class="pg-title">Contact Us</h1>
+  <p class="pg-sub">Questions, feedback, or want to place a large order? We'd love to hear from you.</p>
+</div>
+<div class="contact-wrap">
+  <div>
+    <div class="info-title">Reach us anytime</div>
+    <div class="iblock"><div class="iblock-icon">📞</div><div><div class="iblock-label">Phone</div><div class="iblock-val">+91 98765 43210<br>+91 98765 43211</div></div></div>
+    <div class="iblock"><div class="iblock-icon">📧</div><div><div class="iblock-label">Email</div><div class="iblock-val">hello@spiceroute.in<br>orders@spiceroute.in</div></div></div>
+    <div class="iblock"><div class="iblock-icon">📍</div><div><div class="iblock-label">Address</div><div class="iblock-val">12 Spice Lane, Road No. 36<br>Banjara Hills, Hyderabad<br>Telangana 500034</div></div></div>
+    <div class="iblock"><div class="iblock-icon">⏰</div><div><div class="iblock-label">Opening Hours</div><div class="iblock-val">Mon–Fri: 11:00 AM – 11:00 PM<br>Sat–Sun: 10:00 AM – 11:30 PM<br>Delivery until 10:30 PM daily</div></div></div>
+  </div>
+  <div>
+    <div class="form-box" id="formBox">
+      <div class="form-title">Send a Message</div>
+      <div class="form-sub">We'll get back to you within 24 hours.</div>
+      <div class="frow"><div class="fg"><label class="fl">Your Name</label><input class="fi" id="cf-name" placeholder="Arjun Reddy"></div><div class="fg"><label class="fl">Phone</label><input class="fi" placeholder="+91 98765 43210"></div></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="cf-email" type="email" placeholder="you@example.com"></div>
+      <div class="fg"><label class="fl">Subject</label><select class="fi"><option value="">Select a topic…</option><option>Order Issue</option><option>Feedback</option><option>Catering / Bulk Order</option><option>Partnership</option><option>Other</option></select></div>
+      <div class="fg"><label class="fl">Message</label><textarea class="fi" id="cf-msg" placeholder="Tell us how we can help…"></textarea></div>
+      <button class="btn-fire" onclick="sendMsg()">Send Message →</button>
+    </div>
+    <div class="sent-box" id="sentBox">
+      <div style="font-size:4rem">✅</div>
+      <div class="sent-title">Message Sent!</div>
+      <div class="sent-sub">Thank you for reaching out. We'll get back to you within 24 hours.</div>
+    </div>
+  </div>
+</div>
+<div class="map-box">
+  <div class="map-box-emoji">📍</div>
+  <div class="map-box-text">12 Spice Lane, Banjara Hills, Hyderabad</div>
+  <div class="map-box-sub">Telangana 500034 · Open daily 11AM–11PM</div>
+</div>
+<div class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">SPICE <span>ROUTE</span></div><p style="color:var(--muted);font-size:0.8rem;line-height:1.8;max-width:250px">Authentic Hyderabadi flavours crafted over live fire.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Account</h4><a href="profile.html">My Orders</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
+    <div class="footer-col"><h4>Hours</h4><a>Mon–Fri: 11AM–11PM</a><a>Sat–Sun: 10AM–11:30PM</a><a>Delivery till 10:30PM</a></div>
+  </div>
+  <div class="footer-btm"><span class="footer-copy">© 2026 Spice Route Restaurants Pvt. Ltd.</span></div>
+</div>
+<div class="toasts" id="toasts"></div>
+<script>
+function getCart(){try{return JSON.parse(localStorage.getItem('sr_cart')||'{}')}catch{return{}}}
+document.querySelectorAll('.cart-badge').forEach(e=>e.textContent=Object.values(getCart()).reduce((a,b)=>a+b,0));
+const user=JSON.parse(sessionStorage.getItem('sr_user')||'null');
+if(user)document.getElementById('signinBtn').textContent='👤 '+user.name.split(' ')[0];
+function toast(msg){const w=document.getElementById('toasts');const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>✅</span><div class="toast-msg">${msg}</div>`;w.appendChild(t);setTimeout(()=>{t.style.transition='all .3s';t.style.opacity='0';setTimeout(()=>t.remove(),300)},2400)}
+function sendMsg(){
+  const n=document.getElementById('cf-name').value.trim(),e=document.getElementById('cf-email').value.trim(),m=document.getElementById('cf-msg').value.trim();
+  if(!n||!e||!m){toast('Please fill required fields');return;}
+  document.getElementById('formBox').style.display='none';document.getElementById('sentBox').style.display='block';
+  toast('Message sent! We\'ll reply within 24 hours');
+}
+</script>
+</body>
+</html>
