@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu — SPICE ROUTE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--fire:#e8621c;--gold:#d4960f;--dark:#0d0b08;--card:#181410;--card2:#221c16;--card3:#2a2118;--border:rgba(255,255,255,0.08);--text:#f2ead8;--muted:#8a7a65;--green:#3dba7a}
+html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--fire)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(13,11,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:3px}
+.logo span{color:var(--fire);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{color:var(--muted);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:6px;transition:all .2s}
+.nav-links a:hover,.nav-links a.active{background:var(--card2);color:var(--text)}.nav-links a.active{color:var(--fire)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{background:var(--fire);color:#fff;padding:9px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s}
+.nav-cart:hover{background:#cc5418}
+.cart-badge{background:var(--gold);color:#000;border-radius:20px;min-width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-signin{border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:7px;font-size:0.75rem;font-weight:500;transition:all .2s}
+.nav-signin:hover{border-color:var(--fire);color:var(--fire)}
+.hero{padding:110px 52px 0;background:linear-gradient(to bottom,var(--card),var(--dark))}
+.eyebrow{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--fire);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--fire)}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;margin-bottom:20px}
+.search-row{display:flex;gap:10px;max-width:540px}
+.search-inp{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:0.86rem;outline:none;transition:border-color .2s}
+.search-inp:focus{border-color:var(--fire)}.search-inp::placeholder{color:var(--muted);opacity:.5}
+.search-btn{background:var(--fire);border:none;color:#fff;padding:12px 22px;border-radius:10px;font-weight:600;font-size:0.8rem;transition:background .2s}
+.search-btn:hover{background:#cc5418}
+.tabs{display:flex;gap:0;padding:0 52px;border-bottom:1px solid var(--border);overflow-x:auto;background:var(--dark);margin-top:24px}
+.tab{background:none;border:none;color:var(--muted);font-size:0.75rem;font-weight:500;padding:12px 20px;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:1px;margin-bottom:-1px;cursor:pointer}
+.tab:hover{color:var(--text)}.tab.active{color:var(--fire);border-bottom-color:var(--fire)}
+.menu-body{padding:44px 52px 80px}
+.cat-hdr{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:900;margin:0 0 18px;padding-bottom:13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.mlist{display:flex;flex-direction:column;gap:10px;margin-bottom:48px}
+.mrow{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:all .2s}
+.mrow:hover{border-color:rgba(232,98,28,0.3);background:var(--card2)}
+.mrow-emoji{width:90px;height:80px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:var(--card2);flex-shrink:0}
+.mrow-body{flex:1;padding:14px 16px;min-width:0}
+.mrow-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.mrow-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700}
+.vdot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.vdot.v{background:var(--green);border:1.5px solid var(--green)}.vdot.nv{background:var(--fire);border:1.5px solid var(--fire)}
+.badge{font-size:0.56rem;font-weight:800;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
+.bh{background:var(--fire);color:#fff}.bp{background:var(--gold);color:#000}.bn{background:var(--green);color:#000}
+.mrow-desc{font-size:0.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.mrow-rating{font-size:0.68rem;color:var(--muted)}
+.mrow-right{padding:14px 16px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.mrow-price{font-size:1.05rem;font-weight:700;color:var(--gold)}
+.add-btn{background:var(--fire);border:none;color:#fff;width:34px;height:34px;border-radius:8px;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all .2s;cursor:pointer}
+.add-btn:hover{background:#cc5418;transform:scale(1.1)}
+.qty-ctrl{display:flex;align-items:center;gap:4px;background:var(--card3);border:1px solid var(--border);border-radius:8px;padding:2px}
+.qty-btn{background:none;border:none;color:var(--gold);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:1rem;border-radius:6px;transition:background .15s;cursor:pointer}
+.qty-btn:hover{background:var(--fire);color:#fff}
+.qty-val{font-size:0.82rem;font-weight:700;min-width:18px;text-align:center;color:var(--text)}
+.float-cart{position:fixed;bottom:22px;right:22px;z-index:100;background:var(--fire);color:#fff;padding:13px 22px;border-radius:13px;font-size:0.83rem;font-weight:700;display:none;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(232,98,28,0.4);text-decoration:none;transition:all .2s}
+.float-cart:hover{background:#cc5418;transform:translateY(-2px)}
+.footer{background:var(--card);border-top:1px solid var(--border);padding:44px 52px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);letter-spacing:3px;margin-bottom:10px}
+.footer-logo span{color:var(--fire);font-style:italic}
+.footer-col h4{font-size:0.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--fire);margin-bottom:14px}
+.footer-col a{display:block;color:var(--muted);font-size:0.8rem;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--text)}
+.footer-btm{border-top:1px solid var(--border);padding:14px 0;display:flex;justify-content:space-between}
+.footer-copy{font-size:0.7rem;color:var(--muted)}
+.toasts{position:fixed;bottom:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:10px;padding:12px 18px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 28px rgba(0,0,0,0.6);animation:tIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tIn{from{transform:translateX(-60px);opacity:0}to{transform:none;opacity:1}}
+.toast-msg{font-size:0.8rem;font-weight:500}
+@media(max-width:900px){.nav{padding:0 16px}.nav-links{display:none}.hero,.tabs,.menu-body,.footer{padding-left:16px;padding-right:16px}.mrow-desc{display:none}.footer-grid{grid-template-columns:1fr 1fr;gap:20px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="logo">SPICE <span>ROUTE</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="menu.html" class="active">Menu</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a><a href="profile.html">My Orders</a>
+  </div>
+  <div class="nav-right">
+    <a href="profile.html" class="nav-signin" id="signinBtn">Sign In</a>
+    <a href="cart.html" class="nav-cart">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">23 Dishes · Fresh Daily</div>
+  <h1 class="page-title">Our Menu</h1>
+  <div class="search-row">
+    <input class="search-inp" id="searchInp" type="text" placeholder="Search dishes..." oninput="renderMenu()">
+    <button class="search-btn" onclick="renderMenu()">Search</button>
+  </div>
+</div>
+<div class="tabs" id="tabsEl"></div>
+<div class="menu-body" id="menuBody"></div>
+<a href="cart.html" class="float-cart" id="floatCart">🛒 View Cart · <span id="floatNum">0</span> items</a>
+
+<div class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">SPICE <span>ROUTE</span></div><p style="color:var(--muted);font-size:0.8rem;line-height:1.8;max-width:230px">Authentic Hyderabadi flavours crafted over live fire.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Account</h4><a href="profile.html">My Orders</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
+    <div class="footer-col"><h4>Contact</h4><a>+91 98765 43210</a><a>hello@spiceroute.in</a><a>Banjara Hills, Hyd</a></div>
+  </div>
+  <div class="footer-btm"><span class="footer-copy">© 2026 Spice Route Restaurants Pvt. Ltd.</span></div>
+</div>
+<div class="toasts" id="toasts"></div>
+<script>
+const ALL=[
+  {id:1,name:'Hyderabadi Dum Biryani',cat:'biryani',catL:'Biryani',emoji:'🍛',price:299,desc:'Slow-cooked aged basmati sealed with dough, saffron & caramelised onions.',veg:false,badge:'bestseller',r:4.9,rv:'2.8k'},
+  {id:2,name:'Mutton Biryani Royal',cat:'biryani',catL:'Biryani',emoji:'🍛',price:369,desc:'12-hour marinated mutton, Kewra-infused basmati, rose-water finish.',veg:false,badge:'premium',r:4.8,rv:'1.2k'},
+  {id:3,name:'Paneer Dum Biryani',cat:'biryani',catL:'Biryani',emoji:'🍛',price:269,desc:'Tandoor-smoked cottage cheese, fragrant rice, dry fruits & fried onions.',veg:true,badge:null,r:4.7,rv:'892'},
+  {id:4,name:'Chicken Zafrani Biryani',cat:'biryani',catL:'Biryani',emoji:'🍛',price:319,desc:'Bone-in chicken, saffron curd marinade, slow-dum to perfection.',veg:false,badge:null,r:4.8,rv:'1.6k'},
+  {id:5,name:'Chicken 65',cat:'starters',catL:'Starters',emoji:'🍗',price:249,desc:'Deep-fried with South Indian spices, curry leaves & green chillies.',veg:false,badge:'hot',r:4.9,rv:'3.1k'},
+  {id:6,name:'Paneer Tikka',cat:'starters',catL:'Starters',emoji:'🧆',price:199,desc:'Marinated cottage cheese grilled in tandoor with bell peppers & onions.',veg:true,badge:null,r:4.7,rv:'988'},
+  {id:7,name:'Seekh Kebab',cat:'starters',catL:'Starters',emoji:'🌮',price:279,desc:'Minced lamb with ginger, garlic, herbs & spices on iron skewers.',veg:false,badge:null,r:4.8,rv:'742'},
+  {id:8,name:'Samosa Chaat',cat:'starters',catL:'Starters',emoji:'🥟',price:119,desc:'Crushed samosas with chickpeas, yoghurt, chutneys & pomegranate.',veg:true,badge:'new',r:4.6,rv:'304'},
+  {id:9,name:'Hyderabadi Haleem',cat:'mains',catL:'Main Course',emoji:'🥘',price:279,desc:'Overnight slow-cooked wheat & mutton — a UNESCO-heritage delicacy.',veg:false,badge:'heritage',r:4.9,rv:'2.2k'},
+  {id:10,name:'Butter Chicken',cat:'mains',catL:'Main Course',emoji:'🍲',price:299,desc:'Tandoor-roasted chicken in a velvety tomato-cream-butter sauce.',veg:false,badge:'popular',r:4.8,rv:'4.5k'},
+  {id:11,name:'Dal Makhani',cat:'mains',catL:'Main Course',emoji:'🫕',price:219,desc:'Black lentils slow-cooked 48 hours with butter, cream & Kashmiri spices.',veg:true,badge:null,r:4.7,rv:'1.9k'},
+  {id:12,name:'Mutton Rogan Josh',cat:'mains',catL:'Main Course',emoji:'🍲',price:349,desc:'Kashmiri-style braised lamb, fennel, ginger & Ratan Jot spice blend.',veg:false,badge:null,r:4.8,rv:'934'},
+  {id:13,name:'Palak Paneer',cat:'mains',catL:'Main Course',emoji:'🥬',price:229,desc:'Cottage cheese cubes in silky puréed spinach with cream & nutmeg.',veg:true,badge:null,r:4.6,rv:'1.2k'},
+  {id:14,name:'Butter Naan',cat:'breads',catL:'Breads',emoji:'🫓',price:49,desc:'Freshly baked in tandoor, brushed generously with salted butter.',veg:true,badge:null,r:4.8,rv:'5.2k'},
+  {id:15,name:'Garlic Naan',cat:'breads',catL:'Breads',emoji:'🫓',price:59,desc:'Minced garlic, coriander & butter on freshly baked tandoor naan.',veg:true,badge:'fan fav',r:4.9,rv:'4.8k'},
+  {id:16,name:'Roomali Roti',cat:'breads',catL:'Breads',emoji:'🥙',price:39,desc:'Tissue-thin bread cooked on an inverted iron wok.',veg:true,badge:null,r:4.7,rv:'1.1k'},
+  {id:17,name:'Parotta',cat:'breads',catL:'Breads',emoji:'🫓',price:45,desc:'Flaky, layered South Indian flat bread — crispy outside, soft inside.',veg:true,badge:null,r:4.7,rv:'890'},
+  {id:18,name:'Gulab Jamun',cat:'desserts',catL:'Desserts',emoji:'🍮',price:89,desc:'Milk-solid dumplings in rose-saffron-cardamom syrup. Served warm.',veg:true,badge:null,r:4.8,rv:'2.1k'},
+  {id:19,name:'Double Ka Meetha',cat:'desserts',catL:'Desserts',emoji:'🍞',price:99,desc:'Hyderabadi bread pudding with saffron, cashews & sweetened cream.',veg:true,badge:'local',r:4.9,rv:'1.4k'},
+  {id:20,name:'Phirni',cat:'desserts',catL:'Desserts',emoji:'🍚',price:79,desc:'Chilled rice-milk pudding set in terracotta, saffron & pistachios.',veg:true,badge:null,r:4.7,rv:'678'},
+  {id:21,name:'Mango Lassi',cat:'drinks',catL:'Drinks',emoji:'🥭',price:79,desc:'Yoghurt blended with Alphonso mangoes, cardamom & saffron.',veg:true,badge:'seasonal',r:4.9,rv:'3.2k'},
+  {id:22,name:'Masala Chai',cat:'drinks',catL:'Drinks',emoji:'🫖',price:49,desc:'Strong spiced tea — ginger, cinnamon, cardamom, pepper, fresh milk.',veg:true,badge:null,r:4.8,rv:'2.9k'},
+  {id:23,name:'Rose Sharbat',cat:'drinks',catL:'Drinks',emoji:'🌹',price:69,desc:'Rose syrup with basil seeds, lemon & a hint of kewra. Chilled.',veg:true,badge:null,r:4.6,rv:'542'},
+];
+const CATS=[{id:'all',l:'All'},{id:'biryani',l:'Biryani'},{id:'starters',l:'Starters'},{id:'mains',l:'Main Course'},{id:'breads',l:'Breads'},{id:'desserts',l:'Desserts'},{id:'drinks',l:'Drinks'}];
+let activeCat='all';
+if(location.hash){const h=location.hash.replace('#','');if(CATS.find(c=>c.id===h))activeCat=h;}
+function getCart(){try{return JSON.parse(localStorage.getItem('sr_cart')||'{}')}catch{return{}}}
+function saveCart(c){localStorage.setItem('sr_cart',JSON.stringify(c))}
+function cartCount(){return Object.values(getCart()).reduce((a,b)=>a+b,0)}
+function updateBadge(){const n=cartCount();document.querySelectorAll('.cart-badge').forEach(e=>e.textContent=n);const fc=document.getElementById('floatCart');const fi=document.getElementById('floatNum');if(n>0){fc.style.display='flex';if(fi)fi.textContent=n}else fc.style.display='none'}
+function toast(msg){const w=document.getElementById('toasts');const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>🛒</span><div class="toast-msg">${msg}</div>`;w.appendChild(t);setTimeout(()=>{t.style.transition='all .3s';t.style.opacity='0';t.style.transform='translateX(-60px)';setTimeout(()=>t.remove(),300)},2500)}
+function addToCart(id,name,price){const c=getCart();c[id]=(c[id]||0)+1;saveCart(c);updateBadge();toast(name+' added!');renderMenu()}
+function removeFromCart(id){const c=getCart();if(c[id]>1)c[id]--;else delete c[id];saveCart(c);updateBadge();renderMenu()}
+function bClass(b){if(!b)return'';const m={bestseller:'bh',popular:'bp','fan fav':'bp',hot:'bh',new:'bn',premium:'bp',heritage:'bp',local:'bp',seasonal:'bn'};return m[b]||'bh'}
+function ctrl(item){const q=getCart()[item.id]||0;const n=item.name.replace(/'/g,"\\'");if(q>0)return`<div class="qty-ctrl"><button class="qty-btn" onclick="removeFromCart(${item.id})">−</button><span class="qty-val">${q}</span><button class="qty-btn" onclick="addToCart(${item.id},'${n}',${item.price})">+</button></div>`;return`<button class="add-btn" onclick="addToCart(${item.id},'${n}',${item.price})">+</button>`}
+function buildTabs(){document.getElementById('tabsEl').innerHTML=CATS.map(c=>`<button class="tab ${activeCat===c.id?'active':''}" onclick="activeCat='${c.id}';buildTabs();renderMenu()">${c.l}</button>`).join('')}
+function renderMenu(){
+  const q=document.getElementById('searchInp').value.toLowerCase();
+  const cats=activeCat==='all'?CATS.filter(c=>c.id!=='all'):CATS.filter(c=>c.id===activeCat);
+  let html='';let total=0;
+  cats.forEach(cat=>{
+    const items=ALL.filter(m=>m.cat===cat.id&&(!q||m.name.toLowerCase().includes(q)||m.desc.toLowerCase().includes(q)));
+    if(!items.length)return;total+=items.length;
+    html+=`<div id="${cat.id}"><div class="cat-hdr">${items[0]?.emoji||''} ${cat.l}</div><div class="mlist">`;
+    items.forEach(item=>{
+      html+=`<div class="mrow">
+        <div class="mrow-emoji">${item.emoji}</div>
+        <div class="mrow-body">
+          <div class="mrow-top"><span class="vdot ${item.veg?'v':'nv'}"></span><span class="mrow-name">${item.name}</span>${item.badge?`<span class="badge ${bClass(item.badge)}">${item.badge}</span>`:''}</div>
+          <div class="mrow-desc">${item.desc}</div>
+          <div class="mrow-rating">⭐ ${item.r} · ${item.rv} reviews · ${item.veg?'🟢 Veg':'🔴 Non-veg'}</div>
+        </div>
+        <div class="mrow-right"><div class="mrow-price">₹${item.price}</div>${ctrl(item)}</div>
+      </div>`;
+    });
+    html+=`</div></div>`;
+  });
+  document.getElementById('menuBody').innerHTML=html||(total===0?`<div style="text-align:center;padding:72px 0;color:var(--muted)">😕 No dishes found.</div>`:'');
+}
+const user=JSON.parse(sessionStorage.getItem('sr_user')||'null');
+if(user)document.getElementById('signinBtn').textContent='👤 '+user.name.split(' ')[0];
+updateBadge();buildTabs();renderMenu();
+</script>
+</body>
+</html>
